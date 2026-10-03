@@ -1,0 +1,5 @@
+node_modules/
+server/uploads/
+server/members.json
+server/payments.json
+.env

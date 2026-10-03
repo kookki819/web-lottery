@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เข้าสู่ระบบ - เลขพารวย</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#fff3a6,#ffd54f);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:90%;
+    max-width:420px;
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.logo{
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    color:#d60000;
+    margin-bottom:25px;
+}
+
+h2{
+    text-align:center;
+    color:#b40000;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin-top:7px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    border:0;
+    border-radius:10px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-btn{
+    background:#d60000;
+    color:white;
+}
+
+.register-btn{
+    background:#ffc400;
+    color:#7a0000;
+}
+
+.home-btn{
+    background:#eee;
+    color:#333;
+}
+
+.message{
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.demo{
+    margin-top:20px;
+    padding:12px;
+    background:#fff3cd;
+    border-radius:10px;
+    color:#856404;
+    font-size:14px;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <div class="logo">💰 เลขพารวย</div>
+
+    <h2>🔐 เข้าสู่ระบบสมาชิก</h2>
+
+    <form onsubmit="login(event)">
+
+        <label>เบอร์โทรศัพท์</label>
+        <input
+            type="tel"
+            id="phone"
+            maxlength="10"
+            placeholder="กรอกเบอร์โทรศัพท์ 10 หลัก"
+        >
+
+        <label>รหัส PIN 4 หลัก</label>
+        <input
+            type="password"
+            id="pin"
+            maxlength="4"
+            inputmode="numeric"
+            placeholder="••••"
+        >
+
+        <button class="login-btn" type="submit">
+            🔐 เข้าสู่ระบบ
+        </button>
+
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <button class="register-btn" onclick="goRegister()">
+        📝 สมัครสมาชิก
+    </button>
+
+    <button class="home-btn" onclick="goHome()">
+        🏠 กลับหน้าแรก
+    </button>
+
+    <div class="demo">
+        ⚠️ ระบบนี้เป็น Demo<br>
+        ยังไม่ได้เชื่อมฐานข้อมูลจริง
+    </div>
+
+</div>
+
+<script>
+
+function login(event){
+
+    event.preventDefault();
+
+    const phone = document.getElementById("phone").value.trim();
+    const pin = document.getElementById("pin").value.trim();
+    const message = document.getElementById("message");
+
+    if(!/^[0-9]{10}$/.test(phone)){
+        message.style.color = "red";
+        message.textContent = "❌ กรุณากรอกเบอร์โทรศัพท์ 10 หลัก";
+        return;
+    }
+
+    if(!/^[0-9]{4}$/.test(pin)){
+        message.style.color = "red";
+        message.textContent = "❌ PIN ต้องมี 4 หลัก";
+        return;
+    }
+
+    /*
+      DEMO เท่านั้น
+      ยังไม่มีการตรวจสอบสมาชิกจริง
+    */
+
+    localStorage.setItem("demoLoggedIn","true");
+    localStorage.setItem("demoPhone",phone);
+
+    message.style.color = "green";
+    message.textContent = "✅ เข้าสู่ระบบ Demo สำเร็จ!";
+
+    setTimeout(function(){
+        window.location.href = "index.html";
+    },1000);
+}
+
+
+function goRegister(){
+    window.location.href = "register.html";
+}
+
+
+function goHome(){
+    window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>

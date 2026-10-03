@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin | 💰 เลขพารวย</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, "Tahoma", sans-serif;
+      background: linear-gradient(135deg, #fff8d6, #ffe0e0);
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #e60000, #ff9900);
+      color: white;
+      text-align: center;
+      padding: 22px 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 7px 0 0;
+      font-size: 14px;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 1100px;
+      margin: 30px auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #d60000;
+    }
+
+    .top-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      background: #fff6d8;
+      border: 1px solid #f1d477;
+      border-radius: 15px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #d60000;
+      margin-top: 7px;
+    }
+
+    .payment-card {
+      border: 1px solid #ddd;
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 15px;
+      background: #fff;
+    }
+
+    .payment-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .payment-id {
+      font-weight: bold;
+      color: #d60000;
+      word-break: break-all;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      background: #fff3c4;
+      color: #8a6500;
+    }
+
+    .details {
+      margin-top: 15px;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .slip {
+      width: 100%;
+      max-width: 350px;
+      max-height: 450px;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 1px solid #ddd;
+      margin-top: 15px;
+      background: #f5f5f5;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+    }
+
+    .refresh {
+      background: #e60000;
+    }
+
+    .back {
+      background: #555;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .empty {
+      text-align: center;
+      color: #888;
+      padding: 30px 10px;
+    }
+
+    .error {
+      background: #ffe9e9;
+      color: #c40000;
+      border: 1px solid #f2aaaa;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .top-info {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>💰 เลขพารวย</h1>
+  <p>ระบบจัดการสำหรับ Admin</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>📊 รายการเติมเครดิต</h2>
+
+    <div class="top-info">
+
+      <div class="stat">
+        📋 รายการทั้งหมด
+        <div
+          class="stat-number"
+          id="total"
+        >
+          0
+        </div>
+      </div>
+
+      <div class="stat">
+        ⏳ รอตรวจสอบ
+        <div
+          class="stat-number"
+          id="pending"
+        >
+          0
+        </div>
+      </div>
+
+      <div class="stat">
+        💰 ยืนยันแล้ว
+        <div
+          class="stat-number"
+          id="approved"
+        >
+          0
+        </div>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <button
+        class="refresh"
+        onclick="loadPayments()"
+      >
+        🔄 รีเฟรชรายการ
+      </button>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>🧾 สลิปที่ลูกค้าส่งมา</h2>
+
+    <div id="paymentList">
+      <div class="empty">
+        กำลังโหลด...
+      </div>
+    </div>
+
+  </div>
+
+
+  <button
+    class="back"
+    onclick="goBack()"
+  >
+    ← กลับหน้าหลัก
+  </button>
+
+</div>
+
+
+<script>
+
+  // =====================================
+  // Server
+  // =====================================
+
+  const SERVER_URL =
+    "http://localhost:3000";
+
+
+  // =====================================
+  // โหลดรายการ
+  // =====================================
+
+  async function loadPayments() {
+
+    const list =
+      document.getElementById(
+        "paymentList"
+      );
+
+    list.innerHTML =
+      `
+      <div class="empty">
+        ⏳ กำลังโหลดรายการ...
+      </div>
+      `;
+
+
+    try {
+
+      const response =
+        await fetch(
+          SERVER_URL +
+          "/api/admin/payments"
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        !response.ok ||
+        !data.success
+      ) {
+
+        throw new Error(
+          data.message ||
+          "โหลดรายการไม่สำเร็จ"
+        );
+      }
+
+
+      const payments =
+        data.payments || [];
+
+
+      // ---------------------------------
+      // สถิติ
+      // ---------------------------------
+
+      document.getElementById(
+        "total"
+      ).textContent =
+        payments.length;
+
+
+      const pending =
+        payments.filter(
+          item =>
+            item.status ===
+            "รอตรวจสอบ"
+        ).length;
+
+
+      const approved =
+        payments.filter(
+          item =>
+            item.status ===
+            "เติมแล้ว"
+        ).length;
+
+
+      document.getElementById(
+        "pending"
+      ).textContent =
+        pending;
+
+
+      document.getElementById(
+        "approved"
+      ).textContent =
+        approved;
+
+
+      // ---------------------------------
+      // ไม่มีรายการ
+      // ---------------------------------
+
+      if (!payments.length) {
+
+        list.innerHTML =
+          `
+          <div class="empty">
+            ยังไม่มีรายการเติมเครดิต
+          </div>
+          `;
+
+        return;
+      }
+
+
+      // ล่าสุดขึ้นก่อน
+
+      payments.reverse();
+
+
+      list.innerHTML =
+        payments.map(
+          payment => {
+
+            const date =
+              formatDate(
+                payment.createdAt
+              );
+
+
+            const slipUrl =
+              SERVER_URL +
+              payment.slip.url;
+
+
+            let amount =
+              "ยังไม่ตรวจสอบ";
+
+
+            if (
+              payment.amount !== null &&
+              payment.amount !== undefined
+            ) {
+
+              amount =
+                Number(
+                  payment.amount
+                ).toLocaleString(
+                  "th-TH"
+                ) +
+                " บาท";
+            }
+
+
+            return `
+              <div class="payment-card">
+
+                <div class="payment-head">
+
+                  <div class="payment-id">
+                    🧾 ${payment.id}
+                  </div>
+
+                  <div class="status">
+                    ${payment.status}
+                  </div>
+
+                </div>
+
+
+                <div class="details">
+
+                  📱 เบอร์สมาชิก:
+                  ${payment.phone}
+
+                  <br>
+
+                  💰 ยอด:
+                  ${amount}
+
+                  <br>
+
+                  🕐 วันที่ส่ง:
+                  ${date}
+
+                  <br>
+
+                  📎 ไฟล์:
+                  ${payment.slip.originalName}
+
+                  <br>
+
+                  📦 ขนาด:
+                  ${formatSize(
+                    payment.slip.size
+                  )}
+
+                </div>
+
+
+                <img
+                  class="slip"
+                  src="${slipUrl}"
+                  alt="สลิป ${payment.id}"
+                >
+
+              </div>
+            `;
+
+          }
+        ).join("");
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      list.innerHTML =
+        `
+        <div class="error">
+          ❌ ${error.message}
+          <br><br>
+          ตรวจสอบว่า Server กำลังทำงานอยู่
+        </div>
+        `;
+    }
+  }
+
+
+  // =====================================
+  // วันที่
+  // =====================================
+
+  function formatDate(
+    value
+  ) {
+
+    if (!value) {
+      return "-";
+    }
+
+
+    const date =
+      new Date(value);
+
+
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
+
+      return value;
+    }
+
+
+    return date.toLocaleString(
+      "th-TH",
+      {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }
+    );
+  }
+
+
+  // =====================================
+  // ขนาดไฟล์
+  // =====================================
+
+  function formatSize(
+    bytes
+  ) {
+
+    if (!bytes) {
+      return "0 KB";
+    }
+
+
+    if (
+      bytes <
+      1024 * 1024
+    ) {
+
+      return (
+        bytes / 1024
+      ).toFixed(1) +
+      " KB";
+    }
+
+
+    return (
+      bytes /
+      (1024 * 1024)
+    ).toFixed(2) +
+    " MB";
+  }
+
+
+  // =====================================
+  // กลับ
+  // =====================================
+
+  function goBack() {
+
+    window.location.href =
+      "index.html";
+  }
+
+
+  // =====================================
+  // เริ่มต้น
+  // =====================================
+
+  loadPayments();
+
+</script>
+
+</body>
+</html>

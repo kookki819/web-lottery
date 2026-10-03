@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💰 เลขพารวย</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff8dc;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(135deg, #d40000, #ffcc00);
+  color: white;
+  padding: 18px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 10px;
+  font-size: 30px;
+}
+
+.credit-box {
+  background: white;
+  color: #b00000;
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+nav {
+  background: #a80000;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+nav button {
+  border: none;
+  background: white;
+  color: #a80000;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.container {
+  width: 95%;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.hero {
+  background: linear-gradient(135deg, #fff0a8, #ffffff);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hero h2 {
+  color: #c00000;
+}
+
+.section {
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.section h2 {
+  color: #b00000;
+}
+
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.number-card {
+  border: 2px solid #ffd21f;
+  border-radius: 15px;
+  padding: 18px;
+  text-align: center;
+  background: #fffdf0;
+}
+
+.number {
+  font-size: 32px;
+  font-weight: bold;
+  color: #b00000;
+  margin-bottom: 8px;
+}
+
+.type {
+  color: #777;
+  margin-bottom: 12px;
+}
+
+.price-input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 17px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.buy-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #d40000;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buy-btn:hover {
+  background: #a90000;
+}
+
+.add-number-box {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.add-number-box input {
+  flex: 1;
+  min-width: 180px;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.add-number-box button,
+.action-btn {
+  border: none;
+  background: #ffca00;
+  color: #8b0000;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cart-item {
+  background: #fff8dc;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cart-number {
+  font-size: 20px;
+  font-weight: bold;
+  color: #b00000;
+}
+
+.remove-btn {
+  border: none;
+  background: #777;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.buy-all-btn {
+  width: 100%;
+  background: #d40000;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.history-item {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+.history-number {
+  display: inline-block;
+  background: #fff0a8;
+  color: #a00000;
+  padding: 7px 10px;
+  border-radius: 8px;
+  margin: 4px;
+  font-weight: bold;
+}
+
+.winner {
+  color: green;
+  font-weight: bold;
+}
+
+.loser {
+  color: #999;
+}
+
+.credit-input {
+  width: 100%;
+  max-width: 350px;
+  padding: 13px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
+.add-credit-btn {
+  padding: 13px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #d40000;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.success-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.success-box {
+  background: white;
+  width: 340px;
+  max-width: 90%;
+  padding: 28px;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,.3);
+}
+
+.success-icon {
+  width: 65px;
+  height: 65px;
+  margin: auto;
+  background: #ffd21f;
+  color: #b00000;
+  border-radius: 50%;
+  font-size: 42px;
+  line-height: 65px;
+  font-weight: bold;
+}
+
+.success-box h3 {
+  color: #b00000;
+}
+
+.success-box button {
+  border: none;
+  background: #d40000;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <h1>💰 เลขพารวย</h1>
+
+  <div class="credit-box">
+    เครดิตคงเหลือ:
+    <span id="creditDisplay">0</span>
+    บาท
+  </div>
+
+</header>
+
+<nav>
+
+  <button onclick="scrollToId('lottery')">
+    🎟️ หวย
+  </button>
+
+  <button onclick="scrollToId('cart')">
+    🛒 ตะกร้า
+    (<span id="cartCount">0</span>)
+  </button>
+
+  <button onclick="scrollToId('history')">
+    📜 ประวัติ
+  </button>
+
+  <button onclick="scrollToId('credit')">
+    💵 เครดิต
+  </button>
+
+  <button onclick="scrollToId('result')">
+    🎯 ตรวจรางวัล
+  </button>
+
+</nav>
+
+<div class="container">
+
+  <div class="hero">
+
+    <h2>🎉 เลือกเลขที่ต้องการ แล้วกำหนดราคาเอง</h2>
+
+    <p>
+      เลือกเลข → ใส่จำนวนเงิน → ใส่ตะกร้า
+    </p>
+
+    <p>
+      💡 ระบบนี้เป็น Demo ใช้เครดิตจำลอง
+    </p>
+
+  </div>
+
+
+  <!-- หวย -->
+
+  <div class="section" id="lottery">
+
+    <h2>🎟️ เลือกซื้อเลข</h2>
+
+    <div id="lotteryList" class="number-grid"></div>
+
+  </div>
+
+
+  <!-- เพิ่มเลข -->
+
+  <div class="section">
+
+    <div class="section">
+
+  <h2>🛒 ซื้อเลขเอง</h2>
+
+  <p>
+    กรอกเลขและจำนวนเงินที่ต้องการซื้อ
+  </p>
+
+  <div class="add-number-box">
+
+    <input
+      id="customBuyNumber"
+      type="text"
+      maxlength="3"
+      placeholder="เลข 2 ตัว หรือ 3 ตัว"
+    >
+
+    <input
+      id="customBuyPrice"
+      type="number"
+      min="1"
+      step="1"
+      placeholder="ราคา เช่น 20"
+    >
+
+    <button onclick="addCustomToCart()">
+      🛒 เพิ่มเข้าตะกร้า
+    </button>
+
+  </div>
+
+</div>
+
+  </div>
+
+
+  <!-- ตะกร้า -->
+
+  <div class="section" id="cart">
+
+    <h2>🛒 ตะกร้าของฉัน</h2>
+
+    <div id="cartList"></div>
+
+    <h3>
+      รวมทั้งหมด:
+      <span id="cartTotal">0</span>
+      บาท
+    </h3>
+
+    <button
+      class="buy-all-btn"
+      onclick="purchaseCart()">
+
+      💳 ยืนยันซื้อทั้งหมด
+
+    </button>
+
+  </div>
+
+
+  <!-- เครดิต -->
+
+  <div class="section" id="credit">
+
+    <h2>💵 เติมเครดิต </h2>
+
+    <p>
+      เติมเครดิตขั้นต่ำ 50 บาท
+    </p>
+
+    <input
+      id="creditAmount"
+      class="credit-input"
+      type="number"
+      min="50"
+      step="1"
+      placeholder="เช่น 50, 100, 250"
+    >
+
+    <br><br>
+
+    
+
+    </button>
+    <button
+  onclick="goToPayment()"
+  style="
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#d60000,#ff6b00);
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:12px;
+  "
+>
+  💳 กดเติมเครดิตร
+</button>
+
+  </div>
+
+
+  <!-- ประวัติ -->
+
+  <div class="section" id="history">
+
+    <h2>📜 ประวัติการซื้อของฉัน</h2>
+
+    <div id="historyList"></div>
+
+  </div>
+
+
+  <!-- ตรวจรางวัล -->
+
+  <div class="section" id="result">
+
+    <h2>🎯 ตรวจรางวัล</h2>
+
+    <div id="resultList"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+function addCustomToCart(){
+
+  const numberInput =
+    document.getElementById(
+      "customBuyNumber"
+    );
+
+  const priceInput =
+    document.getElementById(
+      "customBuyPrice"
+    );
+
+  const number =
+    numberInput.value.trim();
+
+  const price =
+    Number(priceInput.value);
+
+
+  if(!/^\d+$/.test(number)){
+
+    showSuccess(
+      "❌ เลขไม่ถูกต้อง",
+      "กรุณากรอกเฉพาะตัวเลข"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    number.length !== 2 &&
+    number.length !== 3
+  ){
+
+    showSuccess(
+      "❌ เลขไม่ถูกต้อง",
+      "กรุณากรอกเลข 2 ตัว หรือ 3 ตัว"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !Number.isFinite(price) ||
+    price <= 0
+  ){
+
+    showSuccess(
+      "❌ ราคาไม่ถูกต้อง",
+      "กรุณาใส่จำนวนเงินที่ต้องการซื้อ"
+    );
+
+    return;
+
+  }
+
+
+  if(!Number.isInteger(price)){
+
+    showSuccess(
+      "❌ ราคาไม่ถูกต้อง",
+      "กรุณาใส่จำนวนเงินเป็นจำนวนเต็ม"
+    );
+
+    return;
+
+  }
+
+
+  const type =
+    number.length === 2
+      ? "2"
+      : "3";
+
+
+  cart.push({
+
+    number: number,
+
+    type: type,
+
+    price: price
+
+  });
+
+
+  numberInput.value = "";
+
+  priceInput.value = "";
+
+
+  updateCart();
+
+
+  showSuccess(
+    "🛒 เพิ่มเข้าตะกร้าแล้ว!",
+    "เลข " +
+    number +
+    " • " +
+    price.toLocaleString() +
+    " บาท"
+  );
+
+
+  scrollToId("cart");
+
+}
+const defaultNumbers = [
+
+  {
+    number: "25",
+    type: "2"
+  },
+
+  {
+    number: "89",
+    type: "2"
+  },
+
+  {
+    number: "123",
+    type: "3"
+  },
+
+  {
+    number: "728",
+    type: "3"
+  }
+
+];
+
+
+let customNumbers =
+JSON.parse(
+  localStorage.getItem("customNumbers") || "[]"
+);
+
+
+let cart = [];
+
+
+let credit =
+Number(
+  localStorage.getItem("demoCredit") || 0
+);
+
+
+function getMyPhone(){
+
+  return localStorage.getItem("demoPhone");
+
+}
+
+
+function isLoggedIn(){
+
+  return (
+    localStorage.getItem("demoLoggedIn")
+    === "true"
+  );
+
+}
+
+
+function scrollToId(id){
+
+  const element =
+    document.getElementById(id);
+
+  if(element){
+
+    element.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }
+
+}
+
+
+/* =========================
+   แสดงเครดิต
+========================= */
+
+function updateCredit(){
+
+  document.getElementById(
+    "creditDisplay"
+  ).textContent =
+    credit.toLocaleString();
+
+}
+
+
+/* =========================
+   แสดงเลข
+========================= */
+
+function loadLottery(){
+
+  const list =
+    document.getElementById(
+      "lotteryList"
+    );
+
+  const allNumbers =
+    [
+      ...defaultNumbers,
+      ...customNumbers
+    ];
+
+
+  list.innerHTML = "";
+
+
+  allNumbers.forEach(
+    (item, index) => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "number-card";
+
+
+      card.innerHTML = `
+
+        <div class="number">
+          ${item.number}
+        </div>
+
+        <div class="type">
+          🎯 หวย ${item.type} ตัว
+        </div>
+
+        <input
+          class="price-input"
+          id="price-${index}"
+          type="number"
+          min="1"
+          step="1"
+          placeholder="ใส่จำนวนเงิน เช่น 20"
+        >
+
+        <button
+          class="buy-btn"
+          onclick="addToCart(
+            '${item.number}',
+            '${item.type}',
+            'price-${index}'
+          )">
+
+          🛒 ใส่ตะกร้า
+
+        </button>
+
+      `;
+
+
+      list.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* =========================
+   เพิ่มเลขเอง
+========================= */
+
+function addNewNumber(){
+
+  const input =
+    document.getElementById(
+      "newNumber"
+    );
+
+
+  const number =
+    input.value.trim();
+
+
+  if(!/^\d+$/.test(number)){
+
+    showSuccess(
+      "❌ เลขไม่ถูกต้อง",
+      "กรุณากรอกเฉพาะตัวเลข"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    number.length !== 2 &&
+    number.length !== 3
+  ){
+
+    showSuccess(
+      "❌ เลขไม่ถูกต้อง",
+      "กรุณากรอกเลข 2 ตัว หรือ 3 ตัว"
+    );
+
+    return;
+
+  }
+
+
+  const exists =
+    [
+      ...defaultNumbers,
+      ...customNumbers
+    ].some(
+      item =>
+        String(item.number)
+        === String(number)
+    );
+
+
+  if(exists){
+
+    showSuccess(
+      "⚠️ มีเลขนี้แล้ว",
+      "เลข " + number +
+      " มีอยู่ในรายการแล้ว"
+    );
+
+    return;
+
+  }
+
+
+  const type =
+    number.length === 2
+      ? "2"
+      : "3";
+
+
+  customNumbers.push({
+
+    number: number,
+
+    type: type
+
+  });
+
+
+  localStorage.setItem(
+    "customNumbers",
+    JSON.stringify(customNumbers)
+  );
+
+
+  input.value = "";
+
+
+  loadLottery();
+
+
+  showSuccess(
+    "🎉 เพิ่มเลขสำเร็จ!",
+    "เลข " + number +
+    " พร้อมให้ลูกค้าเลือกซื้อแล้ว"
+  );
+
+}
+
+
+/* =========================
+   เพิ่มเข้าตะกร้า
+========================= */
+
+function addToCart(
+  number,
+  type,
+  inputId
+){
+
+  const input =
+    document.getElementById(
+      inputId
+    );
+
+
+  const price =
+    Number(input.value);
+
+
+  if(
+    !Number.isFinite(price) ||
+    price <= 0
+  ){
+
+    showSuccess(
+      "❌ กรุณาใส่ราคา",
+      "กรุณากรอกจำนวนเงินที่ต้องการซื้อ"
+    );
+
+    input.focus();
+
+    return;
+
+  }
+
+
+  if(!Number.isInteger(price)){
+
+    showSuccess(
+      "❌ จำนวนเงินไม่ถูกต้อง",
+      "กรุณากรอกเป็นจำนวนเต็ม"
+    );
+
+    return;
+
+  }
+
+
+  cart.push({
+
+    number: number,
+
+    type: type,
+
+    price: price
+
+  });
+
+
+  input.value = "";
+
+
+  updateCart();
+
+
+  showSuccess(
+    "🛒 เพิ่มเข้าตะกร้าแล้ว",
+    "เลข " + number +
+    " จำนวน " +
+    price.toLocaleString() +
+    " บาท"
+  );
+
+}
+
+
+/* =========================
+   แสดงตะกร้า
+========================= */
+
+function updateCart(){
+
+  const list =
+    document.getElementById(
+      "cartList"
+    );
+
+
+  const count =
+    document.getElementById(
+      "cartCount"
+    );
+
+
+  const totalElement =
+    document.getElementById(
+      "cartTotal"
+    );
+
+
+  list.innerHTML = "";
+
+
+  count.textContent =
+    cart.length;
+
+
+  let total = 0;
+
+
+  if(cart.length === 0){
+
+    list.innerHTML =
+      `<div class="empty">
+        🛒 ยังไม่มีรายการในตะกร้า
+      </div>`;
+
+    totalElement.textContent = "0";
+
+    return;
+
+  }
+
+
+  cart.forEach(
+    (item, index) => {
+
+      total +=
+        Number(item.price);
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "cart-item";
+
+
+      div.innerHTML = `
+
+        <div>
+
+          <div class="cart-number">
+            ${item.number}
+          </div>
+
+          <div>
+            🎯 หวย ${item.type} ตัว
+          </div>
+
+          <div>
+            💵 ${Number(item.price).toLocaleString()}
+            บาท
+          </div>
+
+        </div>
+
+        <button
+          class="remove-btn"
+          onclick="removeFromCart(${index})">
+
+          🗑️ ลบ
+
+        </button>
+
+      `;
+
+
+      list.appendChild(div);
+
+    }
+  );
+
+
+  totalElement.textContent =
+    total.toLocaleString();
+
+}
+
+
+/* =========================
+   ลบตะกร้า
+========================= */
+
+function removeFromCart(index){
+
+  cart.splice(index, 1);
+
+  updateCart();
+
+}
+
+
+/* =========================
+   ซื้อ
+========================= */
+
+function purchaseCart(){
+
+  if(!isLoggedIn()){
+
+    showSuccess(
+      "🔐 กรุณาเข้าสู่ระบบ",
+      "กรุณาเข้าสู่ระบบก่อนซื้อหวย"
+    );
+
+    return;
+
+  }
+
+
+  if(cart.length === 0){
+
+    showSuccess(
+      "🛒 ตะกร้าว่าง",
+      "กรุณาเลือกเลขก่อน"
+    );
+
+    return;
+
+  }
+
+
+  const total =
+    cart.reduce(
+      (sum, item) =>
+        sum + Number(item.price),
+      0
+    );
+
+
+  if(credit < total){
+
+    showSuccess(
+      "❌ เครดิตไม่พอ",
+      "ต้องใช้ " +
+      total.toLocaleString() +
+      " บาท แต่มีเครดิต " +
+      credit.toLocaleString() +
+      " บาท"
+    );
+
+    return;
+
+  }
+
+
+  const adminDate =
+    localStorage.getItem(
+      "adminDrawDate"
+    );
+
+
+  const adminTime =
+    localStorage.getItem(
+      "adminDrawTime"
+    );
+
+
+  if(!adminDate){
+
+    showSuccess(
+      "⚠️ ยังไม่กำหนดวันออกรางวัล",
+      "กรุณารอแอดมินกำหนดวันออกรางวัล"
+    );
+
+    return;
+
+  }
+
+
+  credit -= total;
+
+
+  localStorage.setItem(
+    "demoCredit",
+    credit
+  );
+
+
+  const now =
+    new Date();
+
+
+  const purchase = {
+
+    id:
+      "LP-" +
+      Date.now(),
+
+    phone:
+      getMyPhone(),
+
+    items:
+      JSON.parse(
+        JSON.stringify(cart)
+      ),
+
+    total:
+      total,
+
+    purchaseDate:
+      now.toLocaleDateString(
+        "th-TH"
+      ),
+
+    purchaseTime:
+      now.toLocaleTimeString(
+        "th-TH"
+      ),
+
+    drawDate:
+      adminDate,
+
+    drawTime:
+      adminTime || "",
+
+    status:
+      "รอออกรางวัล"
+
+  };
+
+
+  const allPurchases =
+    JSON.parse(
+      localStorage.getItem(
+        "purchaseHistory"
+      ) || "[]"
+    );
+
+
+  allPurchases.unshift(
+    purchase
+  );
+
+
+  localStorage.setItem(
+    "purchaseHistory",
+    JSON.stringify(
+      allPurchases
+    )
+  );
+
+
+  cart = [];
+
+
+  updateCredit();
+
+  updateCart();
+
+  loadHistory();
+
+  loadResult();
+
+
+  showSuccess(
+    "🎉 ซื้อสำเร็จ!",
+    "ใช้เครดิต " +
+    total.toLocaleString() +
+    " บาท"
+  );
+
+}
+
+
+/* =========================
+   เติมเครดิต
+========================= */
+
+function addCredit(){
+
+  const input =
+    document.getElementById(
+      "creditAmount"
+    );
+
+
+  const amount =
+    Number(input.value);
+
+
+  if(!Number.isFinite(amount)){
+
+    showSuccess(
+      "❌ จำนวนไม่ถูกต้อง",
+      "กรุณากรอกจำนวนเครดิต"
+    );
+
+    return;
+
+  }
+
+
+  if(amount < 50){
+
+    showSuccess(
+      "❌ เติมเครดิตไม่ได้",
+      "เติมเครดิตขั้นต่ำ 50 บาท"
+    );
+
+    return;
+
+  }
+
+
+  if(!Number.isInteger(amount)){
+
+    showSuccess(
+      "❌ จำนวนไม่ถูกต้อง",
+      "กรุณากรอกเป็นจำนวนเต็ม"
+    );
+
+    return;
+
+  }
+
+
+  credit += amount;
+
+
+  localStorage.setItem(
+    "demoCredit",
+    credit
+  );
+
+
+  input.value = "";
+
+
+  updateCredit();
+
+
+  showSuccess(
+    "💰 เติมเครดิตสำเร็จ!",
+    "เพิ่มเครดิต " +
+    amount.toLocaleString() +
+    " บาท"
+  );
+
+}
+
+
+/* =========================
+   ประวัติ
+========================= */
+
+function loadHistory(){
+
+  const list =
+    document.getElementById(
+      "historyList"
+    );
+
+
+  const phone =
+    getMyPhone();
+
+
+  const allPurchases =
+    JSON.parse(
+      localStorage.getItem(
+        "purchaseHistory"
+      ) || "[]"
+    );
+
+
+  const myPurchases =
+    allPurchases.filter(
+      item =>
+        String(item.phone)
+        === String(phone)
+    );
+
+
+  list.innerHTML = "";
+
+
+  if(myPurchases.length === 0){
+
+    list.innerHTML =
+      `<div class="empty">
+        📜 ยังไม่มีประวัติการซื้อ
+      </div>`;
+
+    return;
+
+  }
+
+
+  myPurchases.forEach(
+    purchase => {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "history-item";
+
+
+      let itemsHtml = "";
+
+
+      purchase.items.forEach(
+        item => {
+
+          itemsHtml += `
+
+            <span class="history-number">
+
+              ${item.number}
+
+              -
+              ${Number(item.price).toLocaleString()}
+              บาท
+
+            </span>
+
+          `;
+
+        }
+      );
+
+
+      div.innerHTML = `
+
+        <b>
+          🧾 ${purchase.id}
+        </b>
+
+        <br><br>
+
+        📅 ซื้อวันที่:
+        ${purchase.purchaseDate}
+
+        <br>
+
+        🕐 เวลา:
+        ${purchase.purchaseTime}
+
+        <br><br>
+
+        🎯 วันออกรางวัล:
+        ${purchase.drawDate}
+
+        ${purchase.drawTime || ""}
+
+        <br><br>
+
+        ${itemsHtml}
+
+        <br>
+
+        💰 รวม:
+        <b>
+          ${purchase.total.toLocaleString()}
+          บาท
+        </b>
+
+        <br><br>
+
+        📌 สถานะ:
+        ${purchase.status}
+
+      `;
+
+
+      list.appendChild(div);
+
+    }
+  );
+
+}
+
+
+/* =========================
+   ตรวจรางวัล
+========================= */
+
+function loadResult(){
+
+  const list =
+    document.getElementById(
+      "resultList"
+    );
+
+
+  const phone =
+    getMyPhone();
+
+
+  const allPurchases =
+    JSON.parse(
+      localStorage.getItem(
+        "purchaseHistory"
+      ) || "[]"
+    );
+
+
+  const myPurchases =
+    allPurchases.filter(
+      item =>
+        String(item.phone)
+        === String(phone)
+    );
+
+
+  const winningNumbers =
+    JSON.parse(
+      localStorage.getItem(
+        "winningNumbers"
+      ) || "[]"
+    );
+
+
+  list.innerHTML = "";
+
+
+  if(myPurchases.length === 0){
+
+    list.innerHTML =
+      `<div class="empty">
+        🎯 ยังไม่มีรายการให้ตรวจ
+      </div>`;
+
+    return;
+
+  }
+
+
+  myPurchases.forEach(
+    purchase => {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "history-item";
+
+
+      let html = "";
+
+
+      purchase.items.forEach(
+        item => {
+
+          const win =
+            winningNumbers.includes(
+              String(item.number)
+            );
+
+
+          html += `
+
+            <div>
+
+              ${item.number}
+              -
+              ${Number(item.price).toLocaleString()}
+              บาท
+
+              ${
+                win
+                  ? `<span class="winner">
+                       🎉 ถูกรางวัล
+                     </span>`
+                  : `<span class="loser">
+                       ยังไม่ถูกรางวัล
+                     </span>`
+              }
+
+            </div>
+
+          `;
+
+        }
+      );
+
+
+      div.innerHTML = `
+
+        <b>${purchase.id}</b>
+
+        <br><br>
+
+        ${html}
+
+      `;
+
+
+      list.appendChild(div);
+
+    }
+  );
+
+}
+
+
+/* =========================
+   Popup
+========================= */
+
+function showSuccess(
+  title,
+  message
+){
+
+  const old =
+    document.getElementById(
+      "successPopup"
+    );
+
+
+  if(old){
+
+    old.remove();
+
+  }
+
+
+  const popup =
+    document.createElement(
+      "div"
+    );
+
+
+  popup.id =
+    "successPopup";
+
+
+  popup.className =
+    "success-popup";
+
+
+  popup.innerHTML = `
+
+    <div class="success-box">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <h3>
+        ${title}
+      </h3>
+
+      <p>
+        ${message}
+      </p>
+
+      <button
+        onclick="
+          document
+          .getElementById(
+            'successPopup'
+          )
+          .remove()
+        ">
+
+        ตกลง
+
+      </button>
+
+    </div>
+
+  `;
+
+
+  document.body.appendChild(
+    popup
+  );
+
+
+  setTimeout(
+    () => {
+
+      const element =
+        document.getElementById(
+          "successPopup"
+        );
+
+
+      if(element){
+
+        element.remove();
+
+      }
+
+    },
+    3500
+  );
+
+}
+
+
+/* =========================
+   เริ่มระบบ
+========================= */
+
+updateCredit();
+
+loadLottery();
+
+updateCart();
+
+loadHistory();
+
+loadResult();
+function goToPayment(){
+
+  const input =
+    document.getElementById("creditAmount");
+
+  if(!input){
+    alert("ไม่พบช่องจำนวนเงินเติมเครดิต");
+    return;
+  }
+
+  const amount =
+    Number(input.value);
+
+  if(!Number.isFinite(amount) || amount < 50){
+
+    showSuccess(
+      "❌ จำนวนเงินไม่ถูกต้อง",
+      "กรุณาเติมเครดิตขั้นต่ำ 50 บาท"
+    );
+
+    return;
+  }
+
+  window.location.href =
+    "payment.html?amount=" +
+    encodeURIComponent(amount) +
+    "&type=credit";
+}
+</script>
+
+</body>
+</html>

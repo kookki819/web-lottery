@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+สมัครสมาชิก - เลขพารวย
+</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff8d6,
+      #ffd43b
+    );
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 20px;
+}
+
+.box {
+
+  width: 100%;
+
+  max-width: 550px;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 25px;
+
+  border: 3px solid #ffd000;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.2);
+}
+
+.logo {
+
+  text-align: center;
+
+  font-size: 30px;
+
+  font-weight: bold;
+
+  color: #c40000;
+}
+
+.subtitle {
+
+  text-align: center;
+
+  color: #777;
+
+  margin:
+    8px 0 25px;
+}
+
+label {
+
+  display: block;
+
+  margin:
+    15px 0 7px;
+
+  font-weight: bold;
+
+  color: #a80000;
+}
+
+input {
+
+  width: 100%;
+
+  padding: 14px;
+
+  border:
+    2px solid #ffd000;
+
+  border-radius: 14px;
+
+  font-size: 16px;
+
+  outline: none;
+
+  background: #fffdf0;
+}
+
+input:focus {
+
+  border-color: #e00000;
+}
+
+.name-row {
+
+  display: flex;
+
+  gap: 12px;
+}
+
+.name-row > div {
+
+  flex: 1;
+}
+
+.bank-title {
+
+  margin-top: 20px;
+
+  margin-bottom: 10px;
+
+  color: #a80000;
+
+  font-weight: bold;
+}
+
+.bank-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 10px;
+}
+
+.bank {
+
+  padding: 12px;
+
+  border:
+    2px solid #eee;
+
+  border-radius: 14px;
+
+  background: #fffdf0;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  cursor: pointer;
+}
+
+.bank:hover {
+
+  border-color: #ffd000;
+}
+
+.bank.selected {
+
+  border:
+    3px solid #e00000;
+
+  background: #fff0a8;
+}
+
+.bank img {
+
+  width: 42px;
+
+  height: 42px;
+
+  object-fit: contain;
+
+  background: white;
+
+  border-radius: 8px;
+}
+
+.bank-name {
+
+  font-weight: bold;
+
+  font-size: 14px;
+}
+
+.bank-code {
+
+  color: #999;
+
+  font-size: 12px;
+
+  margin-top: 3px;
+}
+
+.selected-bank {
+
+  display: none;
+
+  margin-top: 12px;
+
+  padding: 10px;
+
+  background: #fff0a8;
+
+  color: #a80000;
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  font-weight: bold;
+}
+
+.pin {
+
+  text-align: center;
+
+  letter-spacing: 10px;
+
+  font-size: 22px;
+}
+
+.register-btn {
+
+  width: 100%;
+
+  margin-top: 25px;
+
+  padding: 15px;
+
+  border: none;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e00000,
+      #ff3200
+    );
+
+  color: white;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.register-btn:disabled {
+
+  opacity: .6;
+
+  cursor: not-allowed;
+}
+
+.message {
+
+  display: none;
+
+  margin-top: 15px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  font-weight: bold;
+}
+
+.message.show {
+
+  display: block;
+}
+
+.message.success {
+
+  background: #e8ffd8;
+
+  color: #218000;
+}
+
+.message.error {
+
+  background: #ffe0e0;
+
+  color: #c00000;
+}
+
+.login {
+
+  text-align: center;
+
+  margin-top: 20px;
+
+  color: #666;
+}
+
+.login button {
+
+  border: none;
+
+  background: none;
+
+  color: #d00000;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  font-size: 15px;
+}
+
+.demo {
+
+  margin-top: 20px;
+
+  padding: 12px;
+
+  background: #fff0b3;
+
+  color: #765000;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  font-size: 13px;
+}
+
+@media (max-width: 500px) {
+
+  .name-row {
+
+    flex-direction: column;
+
+    gap: 0;
+  }
+
+  .bank-grid {
+
+    grid-template-columns:
+      1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+  <div class="logo">
+    💰 เลขพารวย
+  </div>
+
+  <div class="subtitle">
+    สมัครสมาชิก
+  </div>
+
+
+  <form id="registerForm">
+
+
+    <div class="name-row">
+
+      <div>
+
+        <label>
+          ชื่อ
+        </label>
+
+        <input
+          type="text"
+          id="firstName"
+          placeholder="ชื่อ"
+          required
+        >
+
+      </div>
+
+
+      <div>
+
+        <label>
+          นามสกุล
+        </label>
+
+        <input
+          type="text"
+          id="lastName"
+          placeholder="นามสกุล"
+          required
+        >
+
+      </div>
+
+    </div>
+
+
+    <label>
+      📱 เบอร์โทรศัพท์
+    </label>
+
+    <input
+      type="tel"
+      id="phone"
+      maxlength="10"
+      inputmode="numeric"
+      placeholder="08xxxxxxxx"
+      required
+    >
+
+
+    <div class="bank-title">
+      🏦 เลือกธนาคาร
+    </div>
+
+
+    <div class="bank-grid">
+
+
+      <div
+        class="bank"
+        onclick="selectBank('กสิกรไทย','KBANK',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/KBANK.png">
+
+        <div>
+
+          <div class="bank-name">
+            กสิกรไทย
+          </div>
+
+          <div class="bank-code">
+            KBANK
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('กรุงไทย','KTB',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/KTB.png">
+
+        <div>
+
+          <div class="bank-name">
+            กรุงไทย
+          </div>
+
+          <div class="bank-code">
+            KTB
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('ไทยพาณิชย์','SCB',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/SCB.png">
+
+        <div>
+
+          <div class="bank-name">
+            ไทยพาณิชย์
+          </div>
+
+          <div class="bank-code">
+            SCB
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('กรุงเทพ','BBL',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/BBL.png">
+
+        <div>
+
+          <div class="bank-name">
+            กรุงเทพ
+          </div>
+
+          <div class="bank-code">
+            BBL
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('กรุงศรีอยุธยา','BAY',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/BAY.png">
+
+        <div>
+
+          <div class="bank-name">
+            กรุงศรีอยุธยา
+          </div>
+
+          <div class="bank-code">
+            BAY
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('ทีเอ็มบีธนชาต','TTB',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/TTB.png">
+
+        <div>
+
+          <div class="bank-name">
+            ทีเอ็มบีธนชาต
+          </div>
+
+          <div class="bank-code">
+            TTB
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('ออมสิน','GSB',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/GSB.png">
+
+        <div>
+
+          <div class="bank-name">
+            ออมสิน
+          </div>
+
+          <div class="bank-code">
+            GSB
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('ธ.ก.ส.','BAAC',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/BAAC.png">
+
+        <div>
+
+          <div class="bank-name">
+            ธ.ก.ส.
+          </div>
+
+          <div class="bank-code">
+            BAAC
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('ธนาคารอาคารสงเคราะห์','GHB',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/GHB.png">
+
+        <div>
+
+          <div class="bank-name">
+            ธนาคารอาคารสงเคราะห์
+          </div>
+
+          <div class="bank-code">
+            GHB
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="bank"
+        onclick="selectBank('เกียรตินาคินภัทร','KKP',this)"
+      >
+
+        <img src="https://raw.githubusercontent.com/casperstack/thai-banks-logo/master/icons/KKP.png">
+
+        <div>
+
+          <div class="bank-name">
+            เกียรตินาคินภัทร
+          </div>
+
+          <div class="bank-code">
+            KKP
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div
+      id="selectedBank"
+      class="selected-bank"
+    ></div>
+
+
+    <input
+      type="hidden"
+      id="bank"
+    >
+
+
+    <label>
+      💳 เลขบัญชี
+    </label>
+
+    <input
+      type="text"
+      id="accountNumber"
+      maxlength="20"
+      inputmode="numeric"
+      placeholder="กรอกเลขบัญชี"
+      required
+    >
+
+
+    <label>
+      🔢 ตั้ง PIN 4 หลัก
+    </label>
+
+    <input
+      type="password"
+      id="pin"
+      maxlength="4"
+      inputmode="numeric"
+      pattern="[0-9]{4}"
+      class="pin"
+      placeholder="••••"
+      required
+    >
+
+
+    <button
+      type="submit"
+      id="registerBtn"
+      class="register-btn"
+    >
+      📝 สมัครสมาชิก
+    </button>
+
+
+  </form>
+
+
+  <div
+    id="message"
+    class="message"
+  ></div>
+
+
+  <div class="login">
+
+    มีบัญชีแล้ว?
+
+    <button
+      onclick="goLogin()"
+    >
+      เข้าสู่ระบบ
+    </button>
+
+  </div>
+
+
+  <div class="demo">
+
+    ✅ ระบบสมัครสมาชิกเชื่อมต่อ Server แล้ว
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+
+const SERVER_URL =
+  "http://localhost:3000";
+
+
+let selectedBankCode =
+  "";
+
+
+function selectBank(
+  bankName,
+  bankCode,
+  element
+) {
+
+  document
+    .querySelectorAll(".bank")
+    .forEach(
+      function(bank) {
+
+        bank.classList.remove(
+          "selected"
+        );
+
+      }
+    );
+
+
+  element.classList.add(
+    "selected"
+  );
+
+
+  selectedBankCode =
+    bankCode;
+
+
+  document.getElementById(
+    "bank"
+  ).value =
+    bankCode;
+
+
+  const box =
+    document.getElementById(
+      "selectedBank"
+    );
+
+
+  box.textContent =
+    "🏦 เลือกแล้ว: " +
+    bankName;
+
+
+  box.style.display =
+    "block";
+
+}
+
+
+document
+  .getElementById(
+    "registerForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const firstName =
+        document
+          .getElementById(
+            "firstName"
+          )
+          .value
+          .trim();
+
+
+      const lastName =
+        document
+          .getElementById(
+            "lastName"
+          )
+          .value
+          .trim();
+
+
+      const phone =
+        document
+          .getElementById(
+            "phone"
+          )
+          .value
+          .trim();
+
+
+      const bank =
+        document
+          .getElementById(
+            "bank"
+          )
+          .value
+          .trim();
+
+
+      const accountNumber =
+        document
+          .getElementById(
+            "accountNumber"
+          )
+          .value
+          .trim();
+
+
+      const pin =
+        document
+          .getElementById(
+            "pin"
+          )
+          .value
+          .trim();
+
+
+      const message =
+        document.getElementById(
+          "message"
+        );
+
+
+      const button =
+        document.getElementById(
+          "registerBtn"
+        );
+
+
+      // ----------------------------
+      // ตรวจข้อมูล
+      // ----------------------------
+
+      if (
+        !/^[0-9]{10}$/.test(
+          phone
+        )
+      ) {
+
+        message.textContent =
+          "❌ กรุณากรอกเบอร์โทรศัพท์ 10 หลัก";
+
+        message.className =
+          "message show error";
+
+        return;
+
+      }
+
+
+      if (!selectedBankCode) {
+
+        message.textContent =
+          "❌ กรุณาเลือกธนาคาร";
+
+        message.className =
+          "message show error";
+
+        return;
+
+      }
+
+
+      if (
+        !/^[0-9]{4,20}$/.test(
+          accountNumber
+        )
+      ) {
+
+        message.textContent =
+          "❌ กรุณากรอกเลขบัญชีให้ถูกต้อง";
+
+        message.className =
+          "message show error";
+
+        return;
+
+      }
+
+
+      if (
+        !/^[0-9]{4}$/.test(
+          pin
+        )
+      ) {
+
+        message.textContent =
+          "❌ PIN ต้องเป็นตัวเลข 4 หลัก";
+
+        message.className =
+          "message show error";
+
+        return;
+
+      }
+
+
+      // ----------------------------
+      // ป้องกันกดซ้ำ
+      // ----------------------------
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "⏳ กำลังสมัครสมาชิก...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            SERVER_URL +
+            "/api/register",
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify({
+
+                  firstName:
+                    firstName,
+
+                  lastName:
+                    lastName,
+
+                  phone:
+                    phone,
+
+                  bank:
+                    bank,
+
+                  accountNumber:
+                    accountNumber,
+
+                  pin:
+                    pin
+
+                })
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.message ||
+            "สมัครสมาชิกไม่สำเร็จ"
+          );
+
+        }
+
+
+        message.textContent =
+          "🎉 สมัครสมาชิกเรียบร้อยแล้ว!";
+
+        message.className =
+          "message show success";
+
+
+        document
+          .getElementById(
+            "registerForm"
+          )
+          .reset();
+
+
+        selectedBankCode =
+          "";
+
+
+        document
+          .getElementById(
+            "selectedBank"
+          )
+          .style.display =
+          "none";
+
+
+        setTimeout(
+          function() {
+
+            window.location.href =
+              "login.html";
+
+          },
+          1500
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          error
+        );
+
+
+        message.textContent =
+          "❌ " +
+          error.message;
+
+
+        message.className =
+          "message show error";
+
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "📝 สมัครสมาชิก";
+
+      }
+
+    }
+  );
+
+
+function goLogin() {
+
+  window.location.href =
+    "login.html";
+
+}
+
+</script>
+
+
+</body>
+</html>
